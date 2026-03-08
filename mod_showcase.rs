@@ -1,8 +1,8 @@
 // ═══════════════════════════════════════════════════════════════════════════════
-// MECHA SONIC MOVESET — Super Smash Bros. Ultimate Character Mod (Examples Showcase)
+// Super Smash Bros. Ultimate Character Mod (Examples Showcase)
 // ═══════════════════════════════════════════════════════════════════════════════
 //
-// Author:           Sintomatikoa
+// 
 // Platform:         Nintendo Switch (ARM64 / aarch64-skyline-switch)
 // Language:         Rust (no_std, FFI with C game engine)
 // Framework:        Skyline (runtime code injection) + Smashline (fighter hooks)
@@ -11,7 +11,7 @@
 //                   energy control, animation scripting, and memory-mapped
 //                   flag/work-variable systems.
 //
-// This file contains curated excerpts from the full Mecha Sonic moveset mod that
+// This file contains curated excerpts from a full moveset mod that
 // demonstrate a few examples of SSBU moveset modding.
 // The code hooks into the live game process at runtime, replacing and
 // extending Samus's moveset to create an entirely new character.
@@ -24,11 +24,11 @@
 // 1. TYPE SYSTEM & STATE MACHINE — Form Management
 // ─────────────────────────────────────────────────────────────────────────────
 //
-// Mecha Sonic has four visual forms that must be tracked and rendered
+// character has four visual forms that must be tracked and rendered
 // correctly across all game states. This is modelled as a product of two
 // independent boolean flags, mapped to a sum type (enum) via pattern matching.
 
-/// The four visual forms Mecha Sonic can be in.
+/// The four visual forms character can be in.
 #[derive(Clone, Copy, PartialEq, Debug)]
 pub enum MechaFormState {
     Normal,     // Base body mesh
@@ -112,7 +112,7 @@ pub unsafe fn apply_mecha_form_visibility(
 // ─────────────────────────────────────────────────────────────────────────────
 //
 // Runs every frame (60 Hz).  Reads the current animation hash and maps it
-// to the appropriate eye glow state, giving Mecha Sonic reactive expressions
+// to the appropriate eye glow state, giving character reactive expressions
 // (glitching on damage, powering off on sleep/taunt).
 
 unsafe extern "C" fn eye_animation_opff(fighter: &mut L2CAgentBase) {
@@ -389,7 +389,7 @@ unsafe fn check_air_rifle_cancels(fighter: &mut L2CFighterCommon) -> bool {
 // 5. DOWN SPECIAL — Ball Form with Phase-Based Physics
 // ─────────────────────────────────────────────────────────────────────────────
 //
-// Mecha Sonic curls into a ball and rolls forward, then uncurls.  The move
+// character curls into a ball and rolls forward, then uncurls.  The move
 // is split into timed phases, each with distinct physics and visual states.
 // The mesh swaps to a ball model during the active window and restores on
 // exit — including interrupted exits (hit, cancel, ledge grab, landing).
@@ -539,7 +539,7 @@ unsafe extern "C" fn mesh_force(fighter: &mut L2CAgentBase) {
 // 7. FINAL SMASH → SUPER FORM TRIGGER — Cross-Status Event Propagation
 // ─────────────────────────────────────────────────────────────────────────────
 //
-// When Mecha Sonic lands a Final Smash, it permanently upgrades to Super
+// When character lands a Final Smash, it permanently upgrades to Super
 // form for the rest of that stock.  The challenge: the Final Smash spans
 // multiple internal statuses (START → LOOP → END), and mesh changes made
 // during the cinematic can be overwritten when the fighter returns to
@@ -588,3 +588,4 @@ unsafe extern "C" fn final_smash_super_form_check(fighter: &mut L2CAgentBase) {
         }
     }
 }
+
